@@ -1,0 +1,84 @@
+chapter3 - ip and port number
+ipv4 - 4byte address
+ipv6 - 16byte address
+
+ipv4 -> network address + host address
+ipv4 -> A,B,C,D,E class (A = network 1byte, host 3byte)
+
+network address (211,213,216) -> router -> host address(210)
+Aclass -> first byte = 0~127, 0111 1111
+Bclass ->    "       = 128~191, 1011 1111
+Cclass ->    "       = 192~223, 1101 1111
+
+IP -> NIC(Network Interface Card) -> Os refer to port -> socket
+port -> distinguish socket for one OS (0 ~ 65535)
+	it can't be same port num  
+ well-known port Num (0~1023) can't use for port
+ if tcp has 1024 port, udp can use 1024 port
+ 
+ struct sockaddr_in{
+ 	sa_family_t sin_family;
+ 	uint16_t sin_port;
+ 	struct in_addr sin_addr;
+ 	char sin_zero[8] // x
+ }
+ sin_family : AF_INET (ipv4), AF_INET6 (ipv6), AF_LOCAL (unix for local communicate)
+ sin_port : port num, 16bit
+ sin_addr : ip_address, 32bit
+ sin_zero : no means, setting 0
+ 
+ Network Byte Order -> cpu has different store data Order in memory by OS
+ data = 0x12345678
+ Big Endian -> 0x20 0x21 0x22 0x23
+ 		0x12 0x34 0x56 0x78
+ Little Endian ->0x78 0x56 0x34 0x12
+ 
+ BigEndian comp -> 0x1234 -> LittleEndian comp 0x3412
+ this is why Network Byte Order is used to Big Endian order
+ 
+ rinux long ==> 4byte.
+ htons(unsigned short); host byte order --> network byte order(big endian)
+ htonl(unsigned long);
+ amd and intel cpu --> little endian
+ data transmit -> auto apply network byte order
+ 
+ inet_addr --> "211,223,44,3" => 32bit int type (NBO);
+ inet_aton(char *string, struct in_addr *addr);
+ char *inet_ntoa(char *string) -> 32bit -> ip string
+ htonl(INADDR_ANY); server IP auto 
+ 
+ 
+chapter 4,5 - TCP and UDP
+TCP/IP Protocol stack : Link -> ip -> TCP,UDP -> application (4 hierarchy)
+Open System ? designed based on several standards.
+
+Server.c must have two socket -> 1. server.socket 2. accept.socket
+client connect();'s return does not mean server's call accept();
+client's ip and port reset ? : call connect(), in OS(Kernel)
+Iterative Server -->  loop accept() ~ close(client_sock);
+
+tcp does not have data bound. --> read(), write() discord. (write 3, read 1)
+tcp -> sliding window 
+input buffer upper data doesn't occur
+write() reuturn : output buffer move clear.
+Tcp : three way handshaking(start) , four way handshaking(end)
+SEQ, ACK = SEQ + data byte + 1 , first message : SYN (synchronization);
+FIN : terminate;
+
+chapter 6 - UDP
+UDP --> Flow Control x, connect setting x
+
+TCP/IP protocol Inner?? :
+Udp need to destination address setting.
+sendto(); recvfrom();
+sendto() -->  udp client auto assignment address to socket
+UDP must func(sendto() , recvfrom()) same call count.
+datagram ? udp send packet
+connected UDP : connect();
+
+chapter 7 - TCP Half-close
+shutdown(int sock, int howto);
+
+
+
+ 
