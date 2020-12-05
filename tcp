@@ -80,5 +80,48 @@ chapter 7 - TCP Half-close
 shutdown(int sock, int howto);
 
 
+chapter 8 - Domain Name System
+ IP and Domain name convert each other by DNS 
+ local DNS IP : terminal -> nslookup -> server
+ if default DNS server did not know domain's ip, it asked to up hierarchy DNS server
+ DNS is  Hierarchical of distribute database system.
 
- 
+ domain name to ip address ->  struct hostent * gethostbyname(char *hostname);
+ in hostent struct
+ 1. h_name : official domain name
+ 2. h_aliases : one ip can have two domain name, other domain name
+ 3. h_addrtype : ipv4, or ,ipv6
+ 4. h_length : ipv4 = 4byte , ipv6 = 16byte
+ 5. h_addr_list : domain name to Intger ip address 
+
+ inet_ntoa(*(struct in_addr*)host->h_addr_list[i]);
+ h_addr_list -> &in_addr struct.
+ ip address to domain name -> struct hostent * gethostbyaddr(const char *addr, socklen_t len, int family);
+
+chapter 9 - socket's option and buffer size 
+socket option has hierarchy
+IPPROTO_IP, IPPROTO_TCP, SOL_SOCKET
+state = setsockopt(sock,SOL_SOCKET, SO_RCVBUF, (void *)&rcv_buf, sizeof(rcv_buf));
+state = getsockopt(sock,SOL_SOCKET, SO_SNDBUF, (void *)&snd_buf, &len);
+SOL_SOCKET -> SO_REUSEADDR : can use again port that using in Time-wait, (default 0, --> 1);
+Four-way handshaking has occur, after socket does not erase, --> time-wait state 
+Time-wait state is occur to first terminate offer host.
+
+Nagle Algorithm : data -> ACK -> data -> ACK
+TCP default applys Nagle.
+don't use Nagle algo --> network traffic issue.
+TCP_NODEALY -> True 1 = Nagle Algo off.
+
+chapter 10 - process
+1. multiprocess server 2. multiflexing server 3. multithreading server
+PID -> process per ID.
+fork(); --> create process
+parent pork() return : child process ID, PID > 0
+child pork() return : 0.
+
+Zombie process.
+background processing : consol ./~ & --> can add order.
+pid_t wait(); -> if end of child proc, return to parameter( &address)
+WIFEXITED() : if child process terminate, return true.
+WEXITSTATUS() : child process return value.
+wait(); -> if exit child process is not exist, blocking status.
