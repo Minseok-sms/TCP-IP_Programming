@@ -125,3 +125,19 @@ pid_t wait(); -> if end of child proc, return to parameter( &address)
 WIFEXITED() : if child process terminate, return true.
 WEXITSTATUS() : child process return value.
 wait(); -> if exit child process is not exist, blocking status.
+
+signal handling -> if siganl is occur, os send message to process.
+signal(int signo, void(*func)(int)); 
+int signo -> 1. SIGALRM 2. SIGINT 3. SIGCHLD
+				alarm       ctrl+c    child proc end.
+signal handler -> if signal is occur, func call.
+process does not call func when it is sleep();, so if siganl is occur, process wakeup()
+sigaction();
+struct sigaction -> sa_handler, sa_mask, sa_flags
+if using fork func(), server.c -> clnt_sock fd, client.c -> serv_sock fd close.
+
+chapter 11 - process commuication
+two process can approximate at the same time memory
+pipe(int filedes[2]);
+full duplex commuication : make two pipe.
+fds[0] == read, fds[1] == write.
