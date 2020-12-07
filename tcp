@@ -141,3 +141,42 @@ two process can approximate at the same time memory
 pipe(int filedes[2]);
 full duplex commuication : make two pipe.
 fds[0] == read, fds[1] == write.
+
+chpater 12 - multiflexing server
+multiprocess disadvantage : much calculate, process has per memory space, 
+select() func : filediscriptor collect need to recv, send, except  ==> fd_set type
+FD_ZERO, FD_SET, FD_CLR, FD_ISSET
+FD_ZERO : fd_set variable's all bit to zero.
+FD_SET : variable address to parameter for set filediscriptor
+FD_CLR : filediscriptor clr.
+FD_ISSET : fd has true, return > 0
+
+int select(int maxfd, fd_set *readset, fd_set *writeset, fd_set *exceptset, const struct timeval * timeout);
+maxfd : max filediscriptor
+readset : recv data existence.
+writeset : non blocking data send existence.
+exceptset : except situation to occur existence.
+return ? : error -1, timeout 0
+
+chapter 13 - send & recv input,output func
+send(int sockfd, buf, bytes, flags);
+flags -> option.
+1.MSG_OOB -> out-of-band data.
+2.MSG_PEEK -> input buffer data existence check.
+3.MSG_DONTROUTE 
+4.MSG_DONTWAIT
+5.MSG_WAITALL
+fcntl(recv_sock, F_SETOWN, getpid());
+one socket filediscriptor can be another process fd.
+getpid() can make signal to one process.
+writev(), readv() can write and read once time.
+struct iovec vec[];
+vec[].iov_base = buf;
+vec[].iov_len = len;
+
+chapter 14 - multicast
+multicast is based on UDP.
+server send data to multicast group one time. group of all client can receive data.
+multicast can same area, no same data more than two packet.
+multicast using to multi media data for live sending.
+
