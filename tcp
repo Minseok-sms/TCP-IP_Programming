@@ -179,4 +179,29 @@ multicast is based on UDP.
 server send data to multicast group one time. group of all client can receive data.
 multicast can same area, no same data more than two packet.
 multicast using to multi media data for live sending.
+TTL(Time to Live) --> how far sending the packet. one router pass, -1.
+IPPROTO_IP, IP_MULTICAST_TTL, IP_ADD_MEMBERSHIP
+
+struct ip_mreq join_addr;
+join_addr.imr_multiaddr.s_addr = "Multicast group ip";
+join_Addr.imr_interface.s_addr = "host ip for join the group " = INADDR_ANY;
+
+-boadcast
+broadcast can be sending data to same host address, not another host addr, ex) 192.12.34 --> 192.56.78 x. this case can send data by multicast. 
+Directed broadcast : except network address, remainder host adress set to 1. ex) 192.12.34 (host add) senddata --> 192.12.34.255
+local broadcast : if 192.56.78(host add) want to recv data, sender 255.255.255.255
+SOL_SOCKET -> SO_BBROADCAST => to 1
+
+chapter 15 - standard input,output func 
+standard I/O func is high portability, performance improved using buffering
+open, read, write() --> system func.
+fopen, fgets, fputs() --> standard func.
+if socket is create , int filediscriptor is return
+if you using std func, need to int -> FILE *
+FILE *fdopen(int filediscriptor, char *mode); --> int filediscriptor to FILE *fp;
+int fileno(FILE *fp); --> FILE *fp to int filediscriptor;
+
+read,write <--> fgets, fputs 
+fgets,fputs (std I/O func) does not need to data to string 
+read,write need to buf[str_len] = 0; need to data to string
 
