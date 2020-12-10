@@ -205,3 +205,33 @@ read,write <--> fgets, fputs
 fgets,fputs (std I/O func) does not need to data to string 
 read,write need to buf[str_len] = 0; need to data to string
 
+chapter 16 - I/O Stream distinguish.
+readfp = fdopen(clnt_sock, "r");
+writefp = fdopen(clnt_sock, "w);
+if you want to half-close, --> fclose(writefp); 
+readfp, writefp --> can't use anymore. finally close.
+how to use half-close by fdopen func.
+copy to file descriptor, 1. read FILE pointer, 2. writer FILE pointer.
+all filediscriptor have to close, socket is dead.
+duplicate filediscriptor : if using fork(), one is parent Proc, another is child Proc.
+int dup(int fildes);
+int dup2(int fildes, int fildes 2);
+dup(filediscriptor : 3) --> return 4; 
+
+chapter 17 - epoll
+I/O multiflexing based on select, select func have to call OS. 
+observation target's information to os at the once time, only observation target's range, change things to inform.
+epoll system is only in rinux.
+
+int epoll_create(int size)
+int epoll_ctl();
+EPOLL_CTL_ADD = epoll regist.
+EPOLL_CTL_DEL = epoll delete.
+EPOLL_CTL_MOD = filediscriptor's event change.
+
+epoll_event
+EPOLLIN -> receive data exist
+EPOLLOUT -> output buffer empty.
+EPOLLPRI -> OOB data input
+EPOLLRDHUP
+EPOLLERR -> error
