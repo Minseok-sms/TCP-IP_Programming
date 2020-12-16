@@ -1,0 +1,18 @@
+공용아이피(public ip address) : WAN(wide area network) 
+사설아이피(private ip address) : LAN(local area network) 192.168.0.0 ~ 192.168.255.255
+192.168.0.1 -> gateway address, router address
+공유기 사용안할시 케이블모뎀에서 바로 pc연결 ==> 외부아이피 == 내부아이피
+
+wan,lan 의 중계자같은 역할.
+
+NAT(Network Address Translation) -> 공유기에 연결된 장치들이 인터넷을 통해 공유기밖의 정보에 접속가능
+1.사설아이피를 기록 2.공용아이피로바꿈 -> NAT
+port -> 0~65535
+80 - http, 22 - ssh
+0~1023 -> well known port
+하나의 컴퓨터에는 여러개의 서버가 설치 될수있다. 클라이언트가 접속할시 어느서버와 접속하려고하는지 구분짓기위함.
+
+포트포워딩(portforwarding) : 공유기 외부에서 공유기내부의 몇번포트(80,8080)에 접속한 정보를 어떤아이피 (192.168.0.9)의 몇번포트로 연결해줄지를 설정. 
+유동아이피, 고정아이피(dynamic & static ip address)
+유동아이피 -> ISP에서 유동적으로 개인에게 ip할당.
+고정아이피 -> 서버운영등 특수성, 홍보목적등을위함.
