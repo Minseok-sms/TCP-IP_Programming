@@ -16,3 +16,26 @@ port -> 0~65535
 유동아이피, 고정아이피(dynamic & static ip address)
 유동아이피 -> ISP에서 유동적으로 개인에게 ip할당.
 고정아이피 -> 서버운영등 특수성, 홍보목적등을위함.
+DHCP(Dynamic Host Configuration Protocol) -> 네트워크에 접속한 새 장치의 ip, subnet mask, gateway address, DNS 같은정보를 자동설정.
+공유기에는 DHCP Server 가자동 설치. 각기기에는 DHCP Client가 내장.
+동적으로 IP를 대여해줌. 공유기홈페이지설정에서 수정가능.
+Mac address?
+hosts 파일 : DNS와유사, IP주소에대한 이름지정.
+DNS(domain name service)
+DNS server에 도메인이 추가되고 클라이언트에게 ip를제공
+기기가 네트워크에 연결되는순간 dns server ip가 설정됨. -> 통신사 ISP
+public DNS server로 기존 DNS server에서 따로 설정가능. ex(google public dns server : 8.8.8.8)
+
+blog.example.com.
+. -> root
+com -> top-level  
+example -> second-level
+blog -> sub
+최소한의 컴퓨터는 root name server의 주소는알고있다.
+root, top-level, second-level, sub등 각각의 DNS server가 있다.
+루트 dns부터 순차적으로 하위로 내려가며 ip주소검색.
+컴퓨터에설치된 기본 DNS server는 Root name server 주소가 기본적으로담김.
+root -> top-level -> second-level 순으로 질의
+dns server -> cache존재. 질의를통한 domain ip를 재접속할시에 cache에 저장해둠
+dns server 의 cache가 응답할시 --> non authoritative answer.
+
