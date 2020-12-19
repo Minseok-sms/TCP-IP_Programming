@@ -39,3 +39,6 @@ root -> top-level -> second-level 순으로 질의
 dns server -> cache존재. 질의를통한 domain ip를 재접속할시에 cache에 저장해둠
 dns server 의 cache가 응답할시 --> non authoritative answer.
 
+DNS Record -> dns에서의 domain정보하나하나를 dns record.
+A record : domain -> ip address
+
